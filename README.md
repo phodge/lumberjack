@@ -153,6 +153,33 @@ TaskLogger will also output a line showing how many log entries of level
 WARNING or higher were recorded during the task.
 
 
+
+# Verbosity Management Take II
+
+**experimental ideas**
+
+Instead of using context managers to manage verbosity levels, what if we added some new logging levels?
+
+    ...
+    WARNING = 30
+    *HEADING = 29
+    *LOSING = 28
+    *UNKNOWN = 27
+    *WINNING = 26
+    *DESTRUCTIVE = 25  # script is performing some destructive operation like truncating a table
+    *REMARK = 24
+    INFO = 20
+    *SERVICECALL = 19  # executing mysql queries; making http requests; etc
+    *STATISTIC = 18  # how many files were created, how many queries executed, etc
+    DEBUG = 10
+
+
+We can set the default logging level to "UNKNOWN" for CLI scripts so that you
+get messages about bad things and unknown things, as well as the major
+headings. As you add more `--verbose` flags you get the WINNING messages, INFO
+messages, etc.
+
+
 # Other Packages
 
 Other logging packages I researched
